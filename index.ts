@@ -28,6 +28,7 @@ interface Tile{
   isKey2(): boolean;
   isLock2(): boolean;
   color(g: CanvasRenderingContext2D): void;
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void;
 }
 
 class Air implements Tile{
@@ -69,6 +70,9 @@ class Air implements Tile{
   }
   color(g: CanvasRenderingContext2D): void{
     
+  }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+
   }
 }
 
@@ -112,6 +116,10 @@ class Flux implements Tile{
   color(g: CanvasRenderingContext2D): void{
     g.fillStyle = "#ccffcc";
   }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
 class Unbreakable implements Tile{
@@ -153,6 +161,10 @@ class Unbreakable implements Tile{
   }
   color(g: CanvasRenderingContext2D): void{
     g.fillStyle = "#999999";    
+  }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
 }
 
@@ -196,6 +208,9 @@ class Player implements Tile{
   color(g: CanvasRenderingContext2D): void{
     
   }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+
+  }
 }
 
 class Stone implements Tile{
@@ -237,6 +252,10 @@ class Stone implements Tile{
   }
   color(g: CanvasRenderingContext2D): void{
     g.fillStyle = "#0000cc";
+  }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
 }
 
@@ -280,6 +299,10 @@ class FallingStone implements Tile{
   color(g: CanvasRenderingContext2D): void{
     g.fillStyle = "#0000cc";
   }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
 class Box implements Tile{
@@ -322,6 +345,10 @@ class Box implements Tile{
   color(g: CanvasRenderingContext2D): void{    
     g.fillStyle = "#8b4513";    
   }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
 class FallingBox implements Tile{
@@ -363,7 +390,10 @@ class FallingBox implements Tile{
   }
   color(g: CanvasRenderingContext2D): void{
     g.fillStyle = "#8b4513";
-
+  }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
 }
 
@@ -407,6 +437,10 @@ class Key1 implements Tile{
   color(g: CanvasRenderingContext2D): void{    
     g.fillStyle = "#ffcc00";
   }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
 class Lock1 implements Tile{
@@ -448,6 +482,10 @@ class Lock1 implements Tile{
   }
   color(g: CanvasRenderingContext2D): void{    
     g.fillStyle = "#ffcc00";    
+  }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
 }
 
@@ -491,6 +529,10 @@ class Key2 implements Tile{
   color(g: CanvasRenderingContext2D): void{      
     g.fillStyle = "#00ccff";  
   }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+  }
 }
 
 class Lock2 implements Tile{
@@ -532,6 +574,10 @@ class Lock2 implements Tile{
   }
   color(g: CanvasRenderingContext2D): void{    
     g.fillStyle = "#00ccff";  
+  }
+  draw(g: CanvasRenderingContext2D, x: number, y: number): void {
+    map[y][x].color(g);
+    g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
   }
 }
 
@@ -783,9 +829,7 @@ function createGraphics(){
 function drawMap(g: CanvasRenderingContext2D){
   for (let y = 0; y < map.length; y++) {
     for (let x = 0; x < map[y].length; x++) {            
-      map[y][x].color(g);
-      if (!map[y][x].isAir() && !map[y][x].isPlayer())
-        g.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+      map[y][x].draw(g, x, y);
     }
   }
 }
